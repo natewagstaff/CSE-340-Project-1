@@ -1,0 +1,20 @@
+{
+  "name": "firstproject",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/natewagstaff/CSE-340-Project-1#readme",
+  "bugs": {
+    "url": "https://github.com/natewagstaff/CSE-340-Project-1/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natewagstaff/CSE-340-Project-1.git"
+  },
+  "license": "ISC",
+  "author": "Nathan Wagstaff",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
