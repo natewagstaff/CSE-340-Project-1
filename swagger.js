@@ -5,8 +5,8 @@ const doc = {
         title: 'Books API',
         description: 'API for managing books and a reading list'
     },
-    host: 'cse-340-project-1-plek.onrender.com',
-    schemes: ['https'],  
+    host: 'https://cse-340-project-1-plek.onrender.com',
+    schemes: ['http', 'https'],  
 };
 
 const outputFile = './swagger.json';
