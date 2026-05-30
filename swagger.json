@@ -5,10 +5,9 @@
     "description": "API for managing books and a reading list",
     "version": "1.0.0"
   },
-  "host": "https://cse-340-project-1-plek.onrender.com",
+  "host": "cse-340-project-1-plek.onrender.com",
   "basePath": "/",
   "schemes": [
-    "http",
     "https"
   ],
   "paths": {
