@@ -45,7 +45,18 @@ app
         return done(null, profile);
     }
 ));
-    
+
+// Required for passport.session() to persist the logged-in user across requests.
+// Without these, passport throws "Failed to serialize user into session" (500)
+// at the GitHub callback.
+passport.serializeUser((user, done) => {
+    done(null, user);
+});
+
+passport.deserializeUser((user, done) => {
+    done(null, user);
+});
+
 app.get('/auth/github/callback', passport.authenticate('github', {
     failureRedirect: '/'}), 
     (req, res) => {
