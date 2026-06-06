@@ -58,7 +58,7 @@ const updateBook = async (req, res) => {
     const response = await mongodb.getDatabase().collection('readingList').replaceOne({ _id:  bookId }, book);
     if (response.modifiedCount > 0) {
         res.status(204).send();
-    } else {        res.status(500).json({ error: response.error || 'An error occurred while updating the book' });
+    } else {res.status(500).json({ error: response.error || 'An error occurred while updating the book' });
     }
 };
 
