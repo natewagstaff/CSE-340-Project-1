@@ -2,16 +2,16 @@ const mongodb = require('../data/database');
 const ObjectId = require('mongodb').ObjectId;
 
 
-const getAllBooks = async (req, res) => {       
+const getAllBooks = async (req, res) => {
     // #swagger.tags=['Books']
-    const result = await mongodb.getDatabase().collection('books').find();
-    result.toArray().then((books) => {
+    try {
+        const books = await mongodb.getDatabase().collection('books').find().toArray();
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json(books);
-    }).catch((error) => {
-        res.status(500).json({ message: 'Error fetching books', error: error });
-    });
-}
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching books', error: error.message });
+    }
+};
 
 const getBookById = async (req, res) => {
     // #swagger.tags=['Books']
@@ -30,7 +30,8 @@ const getBookById = async (req, res) => {
 
 const addBook = async (req, res) => {
     // #swagger.tags=['Books']
-    const book = {
+    try {
+        const book = {
             title: req.body.title,
             author: req.body.author,
             genre: req.body.genre,
@@ -39,20 +40,24 @@ const addBook = async (req, res) => {
             publishedYear: req.body.publishedYear,
             language: req.body.language,
             description: req.body.description
-    }
+        };
 
-    const response = await mongodb.getDatabase().collection('books').insertOne(book);
-    if (response.acknowledged) {
-        res.status(204).send();
-    } else {
-        res.status(500).json({ error: response.error || 'An error occurred while adding the book' });
+        const response = await mongodb.getDatabase().collection('books').insertOne(book);
+        if (response.acknowledged) {
+            res.status(204).send();
+        } else {
+            res.status(500).json({ error: 'An error occurred while adding the book' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error adding book', error: error.message });
     }
 };
 
 const updateBook = async (req, res) => {
     // #swagger.tags=['Books']
-    const bookId = new ObjectId(req.params.id);
-    const book = {
+    try {
+        const bookId = new ObjectId(req.params.id);
+        const book = {
             title: req.body.title,
             author: req.body.author,
             genre: req.body.genre,
@@ -61,11 +66,15 @@ const updateBook = async (req, res) => {
             publishedYear: req.body.publishedYear,
             language: req.body.language,
             description: req.body.description
-    };
-    const response = await mongodb.getDatabase().collection('books').replaceOne({ _id:  bookId }, book);
-    if (response.modifiedCount > 0) {
-        res.status(204).send();
-    } else {        res.status(500).json({ error: response.error || 'An error occurred while updating the book' });
+        };
+        const response = await mongodb.getDatabase().collection('books').replaceOne({ _id: bookId }, book);
+        if (response.modifiedCount > 0) {
+            res.status(204).send();
+        } else {
+            res.status(500).json({ error: 'An error occurred while updating the book' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating book', error: error.message });
     }
 };
 
