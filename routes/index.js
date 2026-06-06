@@ -5,7 +5,7 @@ router.use('/', require('./swagger'));
 
 router.get('/', (req, res) => {
     //#swagger.tags=['Welcome to the Book Tracker API!']
-    res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'Welcome to the Book Tracker API!');
+    res.send(req.session.user !== undefined ? `Logged in as ${req.session.user.displayName}` : 'You are not logged in.');
 });
 
 router.use('/books', require('./books'));
